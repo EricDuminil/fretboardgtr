@@ -13,6 +13,7 @@ class Mode(str, Enum):
     DORIAN = 'Dorian'
     DORIAN_B9 = 'Dorianb9'
     DORIAN_SHARP11 = 'Doriansharp11'
+    FLAMENCO = 'Flamenco'
     HALF_TONE_WHOLE_TONE = 'Halftonewholetone'
     HARMONIC_MINOR = 'Harmonicminor'
     IONIAN = 'Ionian'
@@ -44,6 +45,7 @@ SCALES_DICT = {
     'Ionian': [0, 2, 4, 5, 7, 9, 11],
     'Dorian': [0, 2, 3, 5, 7, 9, 10],
     'Phrygian': [0, 1, 3, 5, 7, 8, 10],
+    'Flamenco': [0, 1, 3, 4, 5, 7, 8, 10, 11],
     'Lydian': [0, 2, 4, 6, 7, 9, 11],
     'Mixolydian': [0, 2, 4, 5, 7, 9, 10],
     'Aeolian': [0, 2, 3, 5, 7, 8, 10],
