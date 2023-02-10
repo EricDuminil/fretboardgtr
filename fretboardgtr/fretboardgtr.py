@@ -388,6 +388,7 @@ class FretBoardGtr():
         inter = [0]*len(scale)
         for i in range(len(scale)):
             if scale[i] == None:
+                #NOTE: Is that a bug? Should it be = None?
                 inter[i] == None
             else:
                 inter[i] = intervals[notes_string.index(scale[i])]
