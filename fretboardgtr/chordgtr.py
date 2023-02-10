@@ -50,7 +50,6 @@ class ChordGtr(FretBoardGtr):
     def add_dot(self):
 
         fretfing = [0 if v == None else v for v in self.fingering]
-        minfret = min(v for v in fretfing if v > 0)
 
         dot, nbdot = self.wheredot()
         if max(fretfing) > 4:
@@ -179,10 +178,6 @@ class ChordGtr(FretBoardGtr):
             self.fingering = self.fingering[::-1]  # reverse fingering array
             self.tuning = self.tuning[::-1]
         self.dist()  # modify self.gap
-        chroma = ["A", "A#", "B", "C", "C#",
-                  "D", "D#", "E", "F", "F#", "G", "G#"]
-        intervals = ["1", "b2", "2", "b3", "3",
-                     "4", "b5", "5", "b6", "6", "b7", "7"]
 
         fingname = self.notesname()
         inter = FretBoardGtr.find_intervals(fingname, self.root)
