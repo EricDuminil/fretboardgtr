@@ -11,8 +11,8 @@ class ChordGtrTest(unittest.TestCase):
 
     def test_fingering(self):
         F = ChordGtr()
-        F.setfingering(fingering=[0, 3, 2, 0, 1, 0])
-        self.assertEqual(F.fingering, [0, 3, 2, 0, 1, 0])
+        F.fingering = [0, 3, 2, 0, 1, 0]
+        self.assertEqual(F.fingering.frets, [0, 3, 2, 0, 1, 0])
 
     def test_backgroundfill(self):
         F = ChordGtr(fingering=[0, 3, 2, 0, 1, 0], root="C")

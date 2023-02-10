@@ -12,9 +12,6 @@ class ChordGtr(FretBoardGtr):
         self.root = root
         self.lefthand = lefthand
 
-    def setfingering(self, fingering):
-        self.fingering = fingering
-
     def emptybox(self):
         self.dwg = svgwrite.Drawing(
             self.path,
@@ -48,11 +45,8 @@ class ChordGtr(FretBoardGtr):
         )
 
     def add_dot(self):
-
-        fretfing = [0 if v == None else v for v in self.fingering]
-
         dot, nbdot = self.wheredot()
-        if max(fretfing) > 4:
+        if self.fingering.max > 4:
             for i in range(len(dot)):
                 if nbdot[i] == 1:
                     self.dwg.add(self.dwg.circle(((len(self.tuning)/2+1/2)*self.wf + self._ol, (1.5 +
@@ -70,10 +64,8 @@ class ChordGtr(FretBoardGtr):
         '''
         Create an empty set of rectangles based on tunings.
         '''
-        fretfing = [0 if v == None else v for v in self.fingering]
-
         # Creation of fret
-        if max(fretfing) > 4:
+        if self.fingering.max > 4:
             for i in range(self.gap+2):
                 # self.gap +2 : two is for the beginning and the end of the fretboard
                 self.dwg.add(
@@ -152,12 +144,10 @@ class ChordGtr(FretBoardGtr):
         '''
         Show  tuning at the end of the neck.
         '''
-        fretfing = [0 if v == None else v for v in self.fingering]
-        Max_after_conv = max([0 if v == None else v for v in self.fingering])
-        if max(fretfing) > 4:
+        if self.fingering.max > 4:
             for i in range(len(self.tuning)):
                 X = self.wf*(1+i)+self._ol
-                Y = self.hf*(Max_after_conv+1/2+1)+self._ol
+                Y = self.hf*(self.fingering.max+1/2+1)+self._ol
 
                 t = svgwrite.text.Text(self.tuning[i], insert=(X, Y), dy=[
                                        "0.3em"], font_size=self.fontsize_bottom_tuning, font_weight="normal", style="text-anchor:middle")
@@ -182,29 +172,25 @@ class ChordGtr(FretBoardGtr):
         fingname = self.notesname()
         inter = FretBoardGtr.find_intervals(fingname, self.root)
 
-        fretfing = [0 if v == None else v for v in self.fingering]
-        minfret = min(v for v in fretfing if v > 0)
-
-        if max(fretfing) > 4:
+        if self.fingering.max > 4:
             # print the number to the right of the minfret
 
             X = self.wf*(1+len(self.tuning))+self._ol
             Y = self.hf*(3/2)+self._ol
-            t = svgwrite.text.Text(str(minfret), insert=(X, Y), dy=[
+            t = svgwrite.text.Text(str(self.fingering.min), insert=(X, Y), dy=[
                                    "0.3em"], font_size=self.fontsize_fret, font_weight="bold", style="text-anchor:middle")
             self.dwg.add(t)
 
-            fingering = [v if v == None else v-minfret +
-                         1 if v != 0 else v for v in self.fingering]
+            all_frets = self.fingering.offset(self.fingering.min)
 
         else:
             self.nut()
-            fingering = self.fingering
+            all_frets = self.fingering.all_frets
 
-        for i in range(0, len(self.tuning), 1):
+        for i, (string, fret) in enumerate(all_frets):
 
-            if fingering[i] == None:
-                X = self.wf*(1+i)+self._ol
+            if fret is None:
+                X = self.wf*(1+string)+self._ol
                 Y = self.hf*(1/2)+self._ol
 
                 t = svgwrite.text.Text('X', insert=(X, Y), dy=[
@@ -213,10 +199,10 @@ class ChordGtr(FretBoardGtr):
                 #dwg.add(dwg.image("cross.svg",x=(i+1-0.3)*self.wf +self._ol,y=self.hf*(1/4-0.2)+self._ol,width=2*self.R))
 
             else:
-                X = self.wf*(1+i)+self._ol
-                Y = self.hf*(fingering[i]+1/2)+self._ol
+                X = self.wf*(1+string)+self._ol
+                Y = self.hf*(fret+1/2)+self._ol
 
-                if fingering[i] == 0:
+                if fret == 0:
                     if self.open_color_chord:
                         color = self.dic_color[inter[i]]
                     else:
