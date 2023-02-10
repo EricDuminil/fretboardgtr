@@ -31,6 +31,17 @@ class IntegrateTest(unittest.TestCase):
             file=f.read()
             self.assertEqual(F.dwg.tostring(),file.split('<?xml version="1.0" encoding="utf-8" ?>\n')[1])
 
+    def test_scale_on_seven_strings(self):
+        F=ScaleGtr(scale=["G","A","B","C","D","E","F#"], root="G")
+        F.customtuning(['B','E','A','D','G','B','E'])
+        F.theme(show_note_name=True,color_scale=False)
+        F.pathname('img/scale_seven_strings.svg')
+        F.draw()
+
+        with open(path / 'scale_seven_strings.svg','r') as f:
+            file=f.read()
+            self.assertEqual(F.dwg.tostring(),file.split('<?xml version="1.0" encoding="utf-8" ?>\n')[1])
+
     def test_scale_note_name(self):
         F=ScaleGtr(scale=["G","A","B","C","D","E","F#"],root="G")
         F.customtuning(['E','A','D','G','B','E'])
