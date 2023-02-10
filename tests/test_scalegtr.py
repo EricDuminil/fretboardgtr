@@ -1,11 +1,10 @@
-import os
-import io
-import sys
 import unittest
 from fretboardgtr.fretboardgtr import FretBoardGtr
 from fretboardgtr.scalegtr import ScaleGtr, ChordFromName, ScaleFromName
 from fretboardgtr.chordgtr import ChordGtr
 from fretboardgtr.constants import Mode, Chord
+
+HEADER = '<?xml version="1.0" encoding="utf-8" ?>\n'
 
 path="tests/images/scalegtr/"
 class ScaleGtrTest(unittest.TestCase):
@@ -56,7 +55,7 @@ class ScaleGtrTest(unittest.TestCase):
 
         with open(path+'emptybox.svg','r') as f:
             file=f.read()
-            self.assertEqual(F.dwg.tostring(),file.split('<?xml version="1.0" encoding="utf-8" ?>\n')[1])
+            self.assertEqual(F.dwg.tostring(),file.split(HEADER)[1])
     
     def test_backgroundfill(self):
         F=ScaleGtr(scale=["G","A","B","C","D","E","F#"],root="G")
@@ -70,7 +69,7 @@ class ScaleGtrTest(unittest.TestCase):
 
         with open(path+'background.svg','r') as f:
             file=f.read()
-            self.assertEqual(F.dwg.tostring(),file.split('<?xml version="1.0" encoding="utf-8" ?>\n')[1])
+            self.assertEqual(F.dwg.tostring(),file.split(HEADER)[1])
 
     def test_add_dot(self):
         F=ScaleGtr(scale=["G","A","B","C","D","E","F#"],root="G")
@@ -83,7 +82,7 @@ class ScaleGtrTest(unittest.TestCase):
 
         with open(path+'add_dot.svg','r') as f:
             file=f.read()
-            self.assertEqual(F.dwg.tostring(),file.split('<?xml version="1.0" encoding="utf-8" ?>\n')[1])
+            self.assertEqual(F.dwg.tostring(),file.split(HEADER)[1])
 
     def test_add_dot_24(self):
         F=ScaleGtr(scale=["G","A","B","C","D","E","F#"],root="G")
@@ -97,7 +96,7 @@ class ScaleGtrTest(unittest.TestCase):
 
         with open(path+'add_dot_24.svg','r') as f:
             file=f.read()
-            self.assertEqual(F.dwg.tostring(),file.split('<?xml version="1.0" encoding="utf-8" ?>\n')[1])
+            self.assertEqual(F.dwg.tostring(),file.split(HEADER)[1])
 
     def test_write_lines(self):
         F=ScaleGtr(scale=["G","A","B","C","D","E","F#"],root="G")
@@ -110,7 +109,7 @@ class ScaleGtrTest(unittest.TestCase):
 
         with open(path+'write_lines.svg','r') as f:
             file=f.read()
-            self.assertEqual(F.dwg.tostring(),file.split('<?xml version="1.0" encoding="utf-8" ?>\n')[1])
+            self.assertEqual(F.dwg.tostring(),file.split(HEADER)[1])
     
     def test_write_nut(self):
         F=ScaleGtr(scale=["G","A","B","C","D","E","F#"],root="G")
@@ -123,7 +122,7 @@ class ScaleGtrTest(unittest.TestCase):
 
         with open(path+'nut.svg','r') as f:
             file=f.read()
-            self.assertEqual(F.dwg.tostring(),file.split('<?xml version="1.0" encoding="utf-8" ?>\n')[1])
+            self.assertEqual(F.dwg.tostring(),file.split(HEADER)[1])
 
     def test_show_fret(self):
         F=ScaleGtr(scale=["G","A","B","C","D","E","F#"],root="G")
@@ -136,7 +135,7 @@ class ScaleGtrTest(unittest.TestCase):
 
         with open(path+'show_fret.svg','r') as f:
             file=f.read()
-            self.assertEqual(F.dwg.tostring(),file.split('<?xml version="1.0" encoding="utf-8" ?>\n')[1])
+            self.assertEqual(F.dwg.tostring(),file.split(HEADER)[1])
 
     def test_show_tuning(self):
         F=ScaleGtr(scale=["G","A","B","C","D","E","F#"],root="G")
@@ -149,7 +148,7 @@ class ScaleGtrTest(unittest.TestCase):
 
         with open(path+'tuning.svg','r') as f:
             file=f.read()
-            self.assertEqual(F.dwg.tostring(),file.split('<?xml version="1.0" encoding="utf-8" ?>\n')[1])
+            self.assertEqual(F.dwg.tostring(),file.split(HEADER)[1])
 
     def test_fill_with_chords(self):
         F=ScaleGtr(scale=["G","A","B","C","D","E","F#"],root="G")
@@ -162,7 +161,7 @@ class ScaleGtrTest(unittest.TestCase):
 
         with open(path+'fill_with_chords.svg','r') as f:
             file=f.read()
-            self.assertEqual(F.dwg.tostring(),file.split('<?xml version="1.0" encoding="utf-8" ?>\n')[1])
+            self.assertEqual(F.dwg.tostring(),file.split(HEADER)[1])
 
     def test_fill_with_scale(self):
         F=ScaleGtr(scale=["G","A","B","C","D","E","F#"],root="G")
@@ -175,7 +174,7 @@ class ScaleGtrTest(unittest.TestCase):
 
         with open(path+'fill_with_scale.svg','r') as f:
             file=f.read()
-            self.assertEqual(F.dwg.tostring(),file.split('<?xml version="1.0" encoding="utf-8" ?>\n')[1])
+            self.assertEqual(F.dwg.tostring(),file.split(HEADER)[1])
 
     def test_draw(self):
         F=ScaleGtr(scale=["G","A","B","C","D","E","F#"],root="G")
@@ -188,7 +187,7 @@ class ScaleGtrTest(unittest.TestCase):
 
         with open(path+'draw.svg','r') as f:
             file=f.read()
-            self.assertEqual(F.dwg.tostring(),file.split('<?xml version="1.0" encoding="utf-8" ?>\n')[1])
+            self.assertEqual(F.dwg.tostring(),file.split(HEADER)[1])
 
 if __name__ == "__main__" :
     unittest.main()
