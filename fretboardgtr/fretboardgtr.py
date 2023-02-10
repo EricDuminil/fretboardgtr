@@ -82,10 +82,6 @@ class FretBoardGtr():
         """
         self.path = Path(path)
 
-    def layout(self):
-        square_x = self.hf*(len(self.tuning)+2)
-        pass
-
     def customtuning(self, tuning):
         '''
         Create a custom tuning
@@ -225,16 +221,6 @@ class FretBoardGtr():
         notes = [0]*len(self.tuning)
         chroma = ["A", "A#", "B", "C", "C#",
                   "D", "D#", "E", "F", "F#", "G", "G#"]
-        alter = {
-            "Bb": "A#",
-            "Cb": "B",
-            "B#": "C",
-            "Db": "C#",
-            "Eb": "D#",
-            "Fb": "E",
-            "Gb": "F#",
-            "Ab": "G#"
-        }
 
         for i in range(0, len(self.tuning)):
             if self.fingering[i] == None:
@@ -366,21 +352,6 @@ class FretBoardGtr():
                   "D", "D#", "E", "F", "F#", "G", "G#"]
         intervals = ["1", "b2", "2", "b3", "3",
                      "4", "b5", "5", "b6", "6", "b7", "7"]
-        intervals_dic = {
-            "1": "root",
-            "b2": "minor second",
-            "2": "major second",
-            "b3": "minor third",
-            "3": "major third",
-            "4": "perfect fourth",
-            "b5": "diminished fifth",
-            "5": "perfect fifth",
-            "b6": "minor sixth",
-            "6": "major sixth",
-            "b7": "minor seventh",
-            "7": "major seventh"
-
-        }
         notes_string = [0]*len(chroma)
         for j in range(len(chroma)):
             # start from the root and place the other notes
@@ -406,7 +377,7 @@ class FretBoardGtr():
         That leads to put a dot on the second fret and the fourth fret corresponding to the third and a fifth on the guitar.
         '''
         minfret = self.minmax()[0]
-        dist = self.dist()
+        self.dist()
         dot_fret = [0, 3, 5, 7, 9, 12]
         nbdot_fret = [2, 1, 1, 1, 1, 2]
 
