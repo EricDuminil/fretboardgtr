@@ -257,12 +257,14 @@ class FretBoardGtrTest(unittest.TestCase):
         notes = F.notesname()
         self.assertEqual(notes, ['E', 'C', 'E', 'G', None, 'E'])
 
+        #NOTE: Are those tests still valid? Playing 6 strings on a 4 strings guitar might not make sense.
         F = FretBoardGtr()
         F.customtuning(["A", "B", 'D', 'E'])
         F.fingering = [0, 3, 2, 0, None, 0]
         notes = F.notesname()
         self.assertEqual(notes, ['A', 'D', 'E', 'E'])
 
+        #NOTE: Playing 6 strings on a 7 strings guitar might be okay
         F = FretBoardGtr()
         F.customtuning(["A", "B", 'D', 'E', 'B', 'G', 'D'])
         F.fingering = [0, 3, 2, 0, None, 0]
