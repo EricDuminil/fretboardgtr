@@ -93,6 +93,17 @@ class ChordGtrTest(unittest.TestCase):
             file = f.read()
             self.assertEqual(F.dwg.tostring(), file.split(HEADER)[1])
 
+    def test_draw_multiple_fingering(self):
+        first_position = [[5, 8], [5, 7], [5, 7], [5, 7], [5, 8], [5, 8]]
+        F = ChordGtr(fingering=first_position, root="A")
+
+        F.pathname(path + "a_minor_pentatonic_first_position.svg")
+        F.draw()
+
+        with open(path+'a_minor_pentatonic_first_position.svg', 'r') as f:
+            file = f.read()
+            self.assertEqual(F.dwg.tostring(), file.split(HEADER)[1])
+
     def test_draw(self):
         F = ChordGtr(fingering=[0, 3, 2, 0, 1, 0], root="C")
         F.customtuning(['E', 'A', 'D', 'G', 'B', 'E'])
