@@ -260,28 +260,20 @@ class ScaleGtr(FretBoardGtr):
 
 
     def fill_with_chords(self):
-
-        chroma=["A","A#","B","C","C#","D","D#","E","F","F#","G","G#"]
-        intervals=["1","b2","2","b3","3","4","b5","5","b6","6","b7","7"]
-
-
-
         self.dist()
 
         fingname=self.notesname()
         fingname=list(reversed(fingname))
-        fretfing=[0 if v == None else v for v in self.fingering]
-        minfret = min(v for v in fretfing if v > 0)
+        minfret = self.fingering.min
 
-        if max(fretfing)>12:
+        if self.fingering.max > 12:
             return None
 
-        fingering=[v if v==None else v-minfret+1 if v!=0 else v for v in self.fingering ]
-        fingering=list(reversed(fingering))
+        all_frets = list(reversed(self.fingering.offset(self.fingering.min)))
 
-        for i in range(0,len(self.tuning),1):
+        for i, (string, fret) in enumerate(all_frets):
 
-            if fingering[i]== None:
+            if fret == None:
                 Y=self.wf*(1+i)+self._ol
                 X=self.hf*(1/2)+self._ol
 
@@ -292,9 +284,9 @@ class ScaleGtr(FretBoardGtr):
             else:
 
                 Y=self.wf*(1+i)+self._ol
-                X=self.hf*(fingering[i]+1/2)+self._ol
+                X=self.hf*(fret+1/2)+self._ol
 
-                if fingering[i]==0:
+                if fret == 0:
 
                     self.dwg.add(self.dwg.circle((X,Y),r=self.R,fill=self.open_circle_color,stroke=self.open_circle_stroke_color,stroke_width=self.open_circle_stroke_width))
                     t=svgwrite.text.Text(fingname[i], insert=(X,Y),dy=["0.3em"], font_size=self.fontsize_text,font_weight="bold",fill=self.open_text_color,style="text-anchor:middle")
@@ -305,10 +297,6 @@ class ScaleGtr(FretBoardGtr):
                     self.dwg.add(self.dwg.circle((X,Y),r=self.R,fill=self.fretted_circle_color,stroke=self.fretted_circle_stroke_color,stroke_width=self.fretted_circle_stroke_width))
                     t=svgwrite.text.Text(fingname[i], insert=(X,Y),dy=["0.3em"], font_size=self.fontsize_text,fill=self.fretted_text_color,font_weight="bold",style="text-anchor:middle")
                     self.dwg.add(t)
-
-
-
-
         return self.dwg
 
 
