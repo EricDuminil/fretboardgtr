@@ -231,7 +231,7 @@ class FretBoardGtr():
         chroma = ["A", "A#", "B", "C", "C#",
                   "D", "D#", "E", "F", "F#", "G", "G#"]
 
-        for string, fret in self.fingering.all_frets:
+        for string, fret in self.fingering.strings_and_frets:
             if fret is None:
                 notes.append(None)
             else:

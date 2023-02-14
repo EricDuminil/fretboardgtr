@@ -185,7 +185,7 @@ class ChordGtr(FretBoardGtr):
 
         else:
             self.nut()
-            all_frets = self.fingering.all_frets
+            all_frets = self.fingering.strings_and_frets
 
         for i, (string, fret) in enumerate(all_frets):
 
