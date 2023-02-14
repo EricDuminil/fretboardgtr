@@ -1,4 +1,18 @@
 class Fingering():
+    """" Describes:
+        * a chord with a list of integers,
+        * or a scale fingering with a list of tuples of integers
+
+        There should be as many elements in the list as strings on the guitar.
+        If a string isn't played at all, use None.
+
+        C major chord:
+        >>> Fingering([0, 3, 2, 0, 1, 0])
+        Pentatonic first position:
+        >>> Fingering([[5, 8], [5, 7], [5, 7], [5, 7], [5, 8], [5, 8]])
+        D minor chord
+        >>> Fingering([None, None, 0, 2, 3, 1])
+    """
     def __init__(self, frets):
         self.frets = frets
         self.strings_and_frets = []
