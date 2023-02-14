@@ -165,7 +165,7 @@ class ChordGtr(FretBoardGtr):
     def fillfretboard(self):
 
         if self.lefthand:
-            self.fingering = self.fingering[::-1]  # reverse fingering array
+            self.fingering = self.fingering.reverse()
             self.tuning = self.tuning[::-1]
         self.dist()  # modify self.gap
 

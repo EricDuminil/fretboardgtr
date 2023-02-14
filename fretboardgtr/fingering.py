@@ -44,8 +44,6 @@ class Fingering():
         else:
             return 0
 
-    def __iter__(self):
-        return iter(self.frets)
-
-    def __getitem__(self, item):
-        return self.frets[item]
+    def reverse(self):
+        """Switch between right and left hand"""
+        return self.frets[::-1]
