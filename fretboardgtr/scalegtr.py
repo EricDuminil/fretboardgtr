@@ -260,11 +260,10 @@ class ScaleGtr(FretBoardGtr):
 
 
     def fill_with_chords(self):
+        #NOTE: Is this method really needed?
         self.dist()
 
-        fingname=self.notesname()
-        fingname=list(reversed(fingname))
-        minfret = self.fingering.min
+        note_names=self.notesname()[::-1]
 
         if self.fingering.max > 12:
             return None
@@ -289,13 +288,13 @@ class ScaleGtr(FretBoardGtr):
                 if fret == 0:
 
                     self.dwg.add(self.dwg.circle((X,Y),r=self.R,fill=self.open_circle_color,stroke=self.open_circle_stroke_color,stroke_width=self.open_circle_stroke_width))
-                    t=svgwrite.text.Text(fingname[i], insert=(X,Y),dy=["0.3em"], font_size=self.fontsize_text,font_weight="bold",fill=self.open_text_color,style="text-anchor:middle")
+                    t=svgwrite.text.Text(note_names[i], insert=(X,Y),dy=["0.3em"], font_size=self.fontsize_text,font_weight="bold",fill=self.open_text_color,style="text-anchor:middle")
                     self.dwg.add(t)
 
                 else:
 
                     self.dwg.add(self.dwg.circle((X,Y),r=self.R,fill=self.fretted_circle_color,stroke=self.fretted_circle_stroke_color,stroke_width=self.fretted_circle_stroke_width))
-                    t=svgwrite.text.Text(fingname[i], insert=(X,Y),dy=["0.3em"], font_size=self.fontsize_text,fill=self.fretted_text_color,font_weight="bold",style="text-anchor:middle")
+                    t=svgwrite.text.Text(note_names[i], insert=(X,Y),dy=["0.3em"], font_size=self.fontsize_text,fill=self.fretted_text_color,font_weight="bold",style="text-anchor:middle")
                     self.dwg.add(t)
         return self.dwg
 
