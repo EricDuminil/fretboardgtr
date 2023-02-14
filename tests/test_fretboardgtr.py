@@ -1,10 +1,9 @@
-import os 
+import os
 import io
 import sys
 import unittest
 from fretboardgtr.fretboardgtr import FretBoardGtr
-from fretboardgtr.scalegtr import ScaleGtr, ChordFromName, ScaleFromName
-from fretboardgtr.chordgtr import ChordGtr
+from pathlib import Path
 
 
 class FretBoardGtrTest(unittest.TestCase):
@@ -74,11 +73,11 @@ class FretBoardGtrTest(unittest.TestCase):
         'color_chord':True,
         'open_color_chord':True
         })
-    
+
     def test_pathname(self):
         F=FretBoardGtr()
         F.pathname("/chords/chordsimage")
-        self.assertEqual(str(F.path),"/chords/chordsimage")
+        self.assertEqual(F.path, Path("/chords/chordsimage"))
 
     def test_customtuning(self):
         F=FretBoardGtr()
@@ -102,7 +101,7 @@ class FretBoardGtrTest(unittest.TestCase):
             "b7":'rgb(120, 37, 134)',
             "7":'rgb(120, 25, 98)'
         })
-        
+
         F=FretBoardGtr()
         F.set_color(perfectfourth='rgb(0, 0, 0)')
         self.assertEqual(F.dic_color,{
@@ -271,7 +270,7 @@ class FretBoardGtrTest(unittest.TestCase):
 
     def test_setenharmonic(self):
         F=FretBoardGtr()
-        
+
         self.assertEqual(FretBoardGtr.setenharmonic( ['A#', 'C', 'D', 'D#', 'F', 'G', 'A'] ) , ['Bb', 'C', 'D', 'Eb', 'F', 'G', 'A'])
         self.assertEqual(FretBoardGtr.setenharmonic(["A","A#","B","C","C#","D","D#","E","F","F#","G","G#"]),['A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#'])
         self.assertEqual(FretBoardGtr.setenharmonic(['F#', 'G#', 'A#', 'B', 'C#', 'D#', 'F']),['Gb', 'Ab', 'Bb', 'Cb', 'Db', 'Eb', 'F'])
