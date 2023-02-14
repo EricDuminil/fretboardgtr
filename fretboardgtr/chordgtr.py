@@ -169,8 +169,8 @@ class ChordGtr(FretBoardGtr):
             self.tuning = self.tuning[::-1]
         self.dist()  # modify self.gap
 
-        fingname = self.notesname()
-        inter = FretBoardGtr.find_intervals(fingname, self.root)
+        note_names = self.notesname()
+        intervals = FretBoardGtr.find_intervals(note_names, self.root)
 
         if self.fingering.max > 4:
             # print the number to the right of the minfret
@@ -181,13 +181,14 @@ class ChordGtr(FretBoardGtr):
                                    "0.3em"], font_size=self.fontsize_fret, font_weight="bold", style="text-anchor:middle")
             self.dwg.add(t)
 
-            all_frets = self.fingering.offset(self.fingering.min)
+            strings_and_frets = self.fingering.offset(self.fingering.min)
 
         else:
             self.nut()
-            all_frets = self.fingering.strings_and_frets
+            strings_and_frets = self.fingering
 
-        for i, (string, fret) in enumerate(all_frets):
+        for (string, fret), note_name, interval in\
+            zip(strings_and_frets, note_names, intervals):
 
             if fret is None:
                 X = self.wf*(1+string)+self._ol
@@ -204,13 +205,13 @@ class ChordGtr(FretBoardGtr):
 
                 if fret == 0:
                     if self.open_color_chord:
-                        color = self.dic_color[inter[i]]
+                        color = self.dic_color[interval]
                     else:
                         color = self.fretted_circle_color
                     if self.show_note_name:
-                        name_text = fingname[i]
+                        name_text = note_name
                     elif self.show_degree_name:
-                        name_text = str(inter[i])
+                        name_text = str(interval)
                     else:
                         name_text = ""
                     self.dwg.add(self.dwg.circle((X, Y), r=self.R, fill=self.open_circle_color,
@@ -220,13 +221,13 @@ class ChordGtr(FretBoardGtr):
                     self.dwg.add(t)
                 else:
                     if self.color_chord:
-                        color = self.dic_color[inter[i]]
+                        color = self.dic_color[interval]
                     else:
                         color = self.fretted_circle_color
                     if self.show_note_name:
-                        name_text = fingname[i]
+                        name_text = note_name
                     elif self.show_degree_name:
-                        name_text = str(inter[i])
+                        name_text = str(interval)
                     else:
                         name_text = ""
 

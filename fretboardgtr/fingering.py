@@ -13,8 +13,11 @@ class Fingering():
         D minor chord
         >>> Fingering([None, None, 0, 2, 3, 1])
     """
+
     def __init__(self, frets):
+        # Possibly a 2D-list:
         self.frets = frets
+        # A list of tuples:
         self.strings_and_frets = []
         for string, x in enumerate(frets):
             if isinstance(x, (list, tuple)):
@@ -43,6 +46,9 @@ class Fingering():
             return min(positive)
         else:
             return 0
+
+    def __iter__(self):
+        return iter(self.strings_and_frets)
 
     def reverse(self):
         """Switch between right and left hand"""
