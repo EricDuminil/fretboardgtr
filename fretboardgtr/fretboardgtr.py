@@ -152,7 +152,7 @@ class FretBoardGtr():
                     except Exception as e:
                         print(e,'It is not taken into accounts.')
 
-                            
+
     def theme(self,default_theme=False,**kwargs):
         '''
         Set new attributes to the fretboard
@@ -246,7 +246,7 @@ class FretBoardGtr():
     @staticmethod
     def setenharmonic(originalscale):
         """
-        Function that modify the scale in order to not repeat note 
+        Function that modify the scale in order to not repeat note
         i.e. turns into enharmonic way if possible
         >>> setenharmonic(['A#', 'C', 'D', 'D#', 'F', 'G', 'A'])
             ['Bb', 'C', 'D', 'Eb', 'F', 'G', 'A']
@@ -265,7 +265,7 @@ class FretBoardGtr():
                 "Gb":"F#",
                 "Ab":"G#"
                 }
-                
+
         enharm={
             'A#': 'Bb',
             'B': 'Cb',
@@ -290,7 +290,7 @@ class FretBoardGtr():
                 return True
             else:
                 return False
-        
+
         modified_scale=list(originalscale)
         for i, val in enumerate(modified_scale):
             if val in list(alter.keys()):
@@ -356,11 +356,11 @@ class FretBoardGtr():
         "Ab":"G#"
         }
 
-        #convert to all sharps : 
+        #convert to all sharps :
         for i, value in enumerate(scale):
             if value in list(alter.keys()):
                 scale[i]=alter[value]
-        
+
         chroma=["A","A#","B","C","C#","D","D#","E","F","F#","G","G#"]
         intervals=["1","b2","2","b3","3","4","b5","5","b6","6","b7","7"]
         intervals_dic={
@@ -472,22 +472,22 @@ class FretBoardGtr():
             return
 
         import tempfile
-        with tempfile.NamedTemporaryFile(suffix='.svg') as svg_temp_file:
-            # Save to temp file
-            self.dwg.filename = svg_temp_file.name
+        with tempfile.TemporaryDirectory() as tmpdirname:
+            svg_temp_path = Path(tmpdirname) / 'fretboard.svg'
+            self.dwg.filename = svg_temp_path
             self.dwg.save()
 
-            if upper_extension in ['PNG', 'BMP', 'PPM' , 'JPG' , 'JPEG' , 'GIF'] :
+            if upper_extension in ['PNG', 'BMP', 'PPM' , 'JPG' , 'JPEG' , 'GIF']:
                 from svglib.svglib import svg2rlg
                 from reportlab.graphics import renderPM
 
-                drawing = svg2rlg(svg_temp_file.name)
+                drawing = svg2rlg(svg_temp_path)
                 renderPM.drawToFile(drawing, result_file, fmt=upper_extension)
             elif upper_extension in ['PDF']:
                 from svglib.svglib import svg2rlg
                 from reportlab.graphics import renderPDF
 
-                drawing = svg2rlg(svg_temp_file.name)
+                drawing = svg2rlg(svg_temp_path)
                 #NOTE: renderPDF doesn't seem to accept pathlib.Path
                 renderPDF.drawToFile(drawing, str(result_file.resolve()))
             else:
