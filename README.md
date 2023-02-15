@@ -248,10 +248,10 @@ The ChordGtr class has the same set_color(), theme(), save(), draw() methods as 
 </p>
 
 
-## Todo 
+## Todo
 - ~~enharmonics~~
 - ~~list of scales ( Major, Minor, Dorian ..)~~
 - ~~baseline-dominant problem~~
 - ~~save format~~
--- ~~lefthand~~
-- fingering on scale like this fingering = [[5,8],[5,7],[5,7],[5,7],[5,8],[5,8]] to draw pentatonic for example.
+- ~~lefthand~~
+- ~~fingering on scale like this fingering = [[5,8],[5,7],[5,7],[5,7],[5,8],[5,8]] to draw pentatonic for example.~~
